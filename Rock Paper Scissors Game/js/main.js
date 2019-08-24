@@ -12,6 +12,7 @@ const paperBtn = document.querySelector(SELECTORS.paperBtn);
 const scissorsBtn = document.querySelector(SELECTORS.scissorsBtn);
 const text = document.querySelector(SELECTORS.text);
 
+
 rockBtn.addEventListener('click', choice);
 paperBtn.addEventListener('click', choice);
 scissorsBtn.addEventListener('click', choice);
@@ -53,12 +54,14 @@ function choice() {
             equality(myChoice);
         }
     }
+
+    reset();
 }
 
 function randomChoice() {
     const arr = ['paper', 'rock', 'scissors'];
 
-    return arr[Math.floor(Math.random()*arr.length)];
+    return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function win(myChoice, computerChoice) {
@@ -72,4 +75,10 @@ function loss(myChoice, computerChoice) {
 function equality(myChoice) {
     text.innerHTML = `You are equal. <br>
     You both chose ${myChoice}.`;
+}
+
+function reset() {
+    setTimeout(() => {
+        text.innerHTML = `Choose one of them`;
+    }, 1500);
 }

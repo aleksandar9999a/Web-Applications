@@ -5,14 +5,17 @@
 }
 
 body{
+    background: linear-gradient(to right, #f79d00, #64f38c);
+}
+
+.game{
     height: 100vh;
-    display: flex;
+    display: inline-flexbox;
+    padding: 20%;
+    text-align: center;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background: #f79d00; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f79d00, #64f38c); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f79d00, #64f38c);
     font-family: sans-serif;
     font-size: 30px;
     color: white;
