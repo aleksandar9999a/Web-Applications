@@ -11,7 +11,7 @@ const rockBtn = document.querySelector(SELECTORS.rockBtn);
 const paperBtn = document.querySelector(SELECTORS.paperBtn);
 const scissorsBtn = document.querySelector(SELECTORS.scissorsBtn);
 const text = document.querySelector(SELECTORS.text);
-
+document.body.addEventListener('mousemove', changeBackground);
 
 rockBtn.addEventListener('click', choice);
 paperBtn.addEventListener('click', choice);
@@ -81,4 +81,11 @@ function reset() {
     setTimeout(() => {
         text.innerHTML = `Choose one of them`;
     }, 1500);
+}
+
+function changeBackground(ev) {
+    let x = ev.clientX;
+    let y = ev.clientY;
+    
+    document.body.style.background = `linear-gradient(to right, rgb(${x - 200},${y - 500},150), rgb(${y - 300},${x - 250},150))`;
 }
