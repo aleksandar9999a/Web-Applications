@@ -32,10 +32,15 @@ button {
 img{
     width:60%;
 }
+
 button:hover {
     transform: scale(1.5);
 }
 
 .gameIcons {
     padding: 5%;
+}
+
+.myText {
+    text-align: center;
 }
