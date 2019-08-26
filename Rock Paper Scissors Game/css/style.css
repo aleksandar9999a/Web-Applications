@@ -11,7 +11,7 @@ body{
 .game{
     height: 100vh;
     display: inline-flexbox;
-    padding: 20%;
+    padding: 15%;
     text-align: center;
     justify-content: center;
     flex-direction: column;
