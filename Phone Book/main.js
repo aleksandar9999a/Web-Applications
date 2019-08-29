@@ -100,15 +100,20 @@ function printPersons() {
     let currentPhoneBook = JSON.parse(localStorage.getItem('phoneBook'));
     list.innerHTML = '';
 
-    for (let i = 0; i < currentPhoneBook.length; i++) {
-        let name = currentPhoneBook[i].name;
-        let phone = currentPhoneBook[i].phone;
-
-        list.innerHTML += '<div>' +
-            '<h3>' + name + ': ' + phone +
-            ' <a onclick="deletePersons(\'' + name + ' ' + phone + '\')" class = "btn" href="#">Delete</a> ' +
-            '</h3>' +
-            '</div>';
+    if (currentPhoneBook != null && currentPhoneBook.length > 0) {
+        for (let i = 0; i < currentPhoneBook.length; i++) {
+            let name = currentPhoneBook[i].name;
+            let phone = currentPhoneBook[i].phone;
+    
+            list.innerHTML += '<div>' +
+                '<h3>' + name + ': ' + phone +
+                ' <a onclick="deletePersons(\'' + name + ' ' + phone + '\')" class = "btn" href="#">Delete</a> ' +
+                '</h3>' +
+                '</div>';
+        }
+    }
+    else{
+        list.innerHTML = 'Nothing Here!';
     }
 }
 
