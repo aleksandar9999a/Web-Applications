@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Phone Book</title>
+</head>
+
+<body onload="printPersons()">
+    <div class="container">
+        <div class="createContact">
+            <h1>Create Contacts</h1>
+            <div class="form">
+                <label>Person <input type="text" class="person"></label>
+                <label>Phone number<input type="text" class="phone"></label>
+            </div>
+            <button type="submit" class="submitBtn">Add<div id="notification"></div></button>
+            
+        </div>
+
+        <div class="listOfContacts">
+            <h1>Phone Book</h1>
+            <div class="contacts">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

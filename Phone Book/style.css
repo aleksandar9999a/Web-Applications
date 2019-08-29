@@ -1,0 +1,69 @@
+*{
+    margin: 3% auto;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    display: inline-block;
+    width: 40%;
+}
+
+.createContact, .listOfContacts{
+    width: auto;
+    border-radius: 5px;
+    background-color: #b9dcfa;
+    padding: 10px;
+}
+
+.form {
+    width: 45%;
+    text-align: left;
+}
+
+input {
+    padding: 10px 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.submitBtn {
+    width: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+.btn {
+    width: auto;
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 0px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+#notification {
+    float: right;
+    background: darkslateblue;
+    color: #ffffff;
+    border-radius: 15px;
+    padding: 0.5em 2em 0.5em 2em;
+    margin: 2em;
+    display: none;
+    position: absolute;
+}
