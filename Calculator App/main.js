@@ -1,5 +1,9 @@
 let numberArr = [];
 
+const clearAll = () => {
+    numberArr = [];
+    document.querySelector('.calculator-screen').value = '';
+}
 const calculation = (numberArr) => {
     let finishNumber = Number(numberArr[0]);
     for (let i = 1; i < numberArr.length; i += 2) {
