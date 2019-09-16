@@ -25,17 +25,24 @@ const calculation = (numberArr) => {
     return finishNumber;
 }
 
-// const filter = (arr) => {
-
-//     return arr;
-// }
+const filter = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        if ((arr[i] == '+' || arr[i] == '-' || arr[i] == '*' || arr[i] == '/') && (arr[i + 1] == '+' || arr[i] == '-' || arr[i] == '*' || arr[i] == '/')) {
+            arr.splice(i - 1, 1);
+            i--;
+        }
+    }
+    return arr;
+}
 
 const getNumberFromDisplay = (operator) => {
     let currentNumber = document.querySelector('.calculator-screen').value;
 
-    numberArr.push(currentNumber);
+    if (currentNumber != 0) {
+        numberArr.push(currentNumber);
+    }
+    
     numberArr.push(operator);
-
     document.querySelector('.calculator-screen').value = 0;
 }
 
@@ -51,7 +58,7 @@ const addToDisplay = (number) => {
 const finish = () => {
     let currentNumber = document.querySelector('.calculator-screen').value;
     numberArr.push(currentNumber);
-    //numberArr = filter(numberArr);
+    numberArr = filter(numberArr);
     document.querySelector('.calculator-screen').value = calculation(numberArr);
-    numberArr = [];
+    numberArr = [document.querySelector('.calculator-screen').value];
 }
