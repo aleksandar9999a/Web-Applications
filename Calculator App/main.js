@@ -1,52 +1,57 @@
 let numberArr = [];
 
-const calculation = (numberArr, operator) => {
-    if (operator == '+') {
-        let number = 0;
+const calculation = (numberArr) => {
+    let finishNumber = Number(numberArr[0]);
+    for (let i = 1; i < numberArr.length; i += 2) {
+        let nextNumber = Number(numberArr[i+1]);
+        let operator = numberArr[i];
 
-        numberArr.forEach(e => {number += e;});
-
-        return number;
-    }
-    else if (operator == '-') {
-        let number = numberArr[0];
-
-        for (let i = 1; i < numberArr.length; i++) {
-            number -= numberArr[i];
+        if (nextNumber != undefined) {
+            if (operator == '+') {
+                finishNumber += nextNumber;
+            }
+            else if (operator == '-') {
+                finishNumber -= nextNumber;
+            }
+            else if (operator == '*') {
+                finishNumber *= nextNumber;
+            }
+            else if (operator == '/') {
+                finishNumber /= nextNumber;
+            }
         }
-
-        return number;
     }
-    else if (operator == '*') {
-        let number = 1;
 
-        for (let i = 0; i < numberArr.length; i++) {
-            number *= numberArr[i];
-        }
-
-        return number;
-    }
-    else if (operator == '/') {
-        let number = numberArr[0];
-
-        for (let i = 1; i < numberArr.length; i++) {
-            number /= numberArr[i];
-        }
-
-        return number;
-    }
+    return finishNumber;
 }
+
+// const filter = (arr) => {
+
+//     return arr;
+// }
 
 const getNumberFromDisplay = (operator) => {
     let currentNumber = document.querySelector('.calculator-screen').value;
+
     numberArr.push(currentNumber);
+    numberArr.push(operator);
+
     document.querySelector('.calculator-screen').value = 0;
-    let newNumber = calculation(numberArr, operator);
-    numberArr = [newNumber];
-    console.log(numberArr);
-    
 }
 
 const addToDisplay = (number) => {
-    document.querySelector('.calculator-screen').value += number;
+    if (document.querySelector('.calculator-screen').value == 0) {
+        document.querySelector('.calculator-screen').value = number;
+    }
+    else {
+        document.querySelector('.calculator-screen').value += number;
+    }
+}
+
+const finish = () => {
+    let currentNumber = document.querySelector('.calculator-screen').value;
+    numberArr.push(currentNumber);
+    //numberArr = filter(numberArr);
+    document.querySelector('.calculator-screen').value = calculation(numberArr);
+    numberArr = [];
 }
