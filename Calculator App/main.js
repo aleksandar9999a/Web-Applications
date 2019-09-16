@@ -64,5 +64,5 @@ const finish = () => {
     numberArr.push(currentNumber);
     numberArr = filter(numberArr);
     document.querySelector('.calculator-screen').value = calculation(numberArr);
-    numberArr = [document.querySelector('.calculator-screen').value];
+    numberArr = [];
 }
