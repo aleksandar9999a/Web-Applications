@@ -12,3 +12,5 @@ These are simple applications to try new things, experiment and validate my know
 4: Weather App⁣⁣
 
 5: Landing Page⁣⁣
+
+6: Calculator App
