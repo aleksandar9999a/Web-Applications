@@ -3,9 +3,10 @@ const SELECTOR = {
     siteURL: '#siteURL',
     submitBtn: '#submit',
     bookmarksDiv: '#bookmarksResults',
+    notification: '#notification'
 }
 
-function bookmarksApp(btnID, siteName, siteURL, resultDiv) {
+function bookmarksApp(btnID, siteName, siteURL, resultDiv, notificationDiv) {
     return {
         handleEvent: function (e) {
             if (e.target.id === btnID) {
@@ -32,7 +33,15 @@ function bookmarksApp(btnID, siteName, siteURL, resultDiv) {
         },
 
         invalidMessage: function () {
+            notificationDiv.style.display = 'block';
+    
+            setTimeout(function(){
+                notificationDiv.style.display = 'none';
+            }, 2000)
 
+        },
+
+        createNotification: function(message){
         },
 
         createElement: function (type, content) {
@@ -90,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'submit',
         document.querySelector(SELECTOR.siteNameInput),
         document.querySelector(SELECTOR.siteURL),
-        document.querySelector(SELECTOR.bookmarksDiv)
+        document.querySelector(SELECTOR.bookmarksDiv),
+        document.querySelector(SELECTOR.notification)
     ))
 })
