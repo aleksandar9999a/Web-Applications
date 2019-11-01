@@ -13,6 +13,13 @@ function bookmarksApp(btnID, siteName, siteURL, resultDiv, notificationDiv) {
                 this.submit();
             }
 
+            if (e.target.className === 'btn btn-danger') {
+               this.delete(e.target.parentElement.parentElement);
+            }
+        },
+
+        delete: function(div){
+            div.remove();
         },
 
         submit: function () {
@@ -20,9 +27,9 @@ function bookmarksApp(btnID, siteName, siteURL, resultDiv, notificationDiv) {
                 let listElement = this.createListElement();
                 this.appendElements(resultDiv, listElement)
                 
+            }else{
+                return this.invalidMessage();
             }
-
-            return this.invalidMessage();
         },
 
         validateInput: function () {
