@@ -1,7 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body{
@@ -10,8 +9,7 @@ body{
 
 .game{
     height: 100vh;
-    display: inline-flexbox;
-    padding: 15%;
+    display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: column;
@@ -21,29 +19,21 @@ body{
     color: white;
 }
 
-button {
+img {
     background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
     cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    height:auto;
+    height:100px;
     transition: transform .2s;
 }
 
-img{
-    width:60%;
+img:hover {
+    transform: scale(1.5);
 }
 
-button:hover {
-    transform: scale(1.5);
+img + img {
+    margin-left: 40px;
 }
 
 .gameIcons {
     padding: 5%;
-}
-
-.myText {
-    text-align: center;
 }

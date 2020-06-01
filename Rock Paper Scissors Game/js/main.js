@@ -1,91 +1,50 @@
-const SELECTORS = {
-    gameText: '.myGame',
-    rockBtn: '.rock',
-    paperBtn: '.paper',
-    scissorsBtn: '.scissors',
-    text: '.myText',
-}
-
-const gameText = document.querySelector(SELECTORS.gameText);
-const rockBtn = document.querySelector(SELECTORS.rockBtn);
-const paperBtn = document.querySelector(SELECTORS.paperBtn);
-const scissorsBtn = document.querySelector(SELECTORS.scissorsBtn);
-const text = document.querySelector(SELECTORS.text);
-document.body.addEventListener('mousemove', changeBackground);
-
-rockBtn.addEventListener('click', choice);
-paperBtn.addEventListener('click', choice);
-scissorsBtn.addEventListener('click', choice);
-
-function choice() {
-    const computerChoice = randomChoice();
-    const myChoice = this.className;
-
-    if (myChoice === 'rock') {
-        if (computerChoice === 'rock') {
-            equality(myChoice);
-        }
-        else if (computerChoice === 'paper') {
-            loss(myChoice, computerChoice);
-        }
-        else if (computerChoice === 'scissors') {
-            win(myChoice, computerChoice);
-        }
-    }
-    else if (myChoice === 'paper') {
-        if (computerChoice === 'rock') {
-            win(myChoice, computerChoice);
-        }
-        else if (computerChoice === 'paper') {
-            equality(myChoice);
-        }
-        else if (computerChoice === 'scissors') {
-            loss(myChoice, computerChoice);
-        }
-    }
-    else if (myChoice === 'scissors') {
-        if (computerChoice === 'rock') {
-            loss(myChoice, computerChoice);
-        }
-        else if (computerChoice === 'paper') {
-            win(myChoice, computerChoice);
-        }
-        else if (computerChoice === 'scissors') {
-            equality(myChoice);
+function app(paragraph) {
+    const choices = ['rock', 'paper', 'scissors'];
+    const results = {
+        equal: function (choice) {
+            paragraph.innerHTML = `You are equal. <br>
+            You both chose ${choice}.`;
+            this.resetText();
+        },
+        win: function (firstChoice, secondChoise) {
+            paragraph.innerHTML = `You win. <br> Your choice was ${firstChoice} and its ${secondChoise}.`;
+            this.resetText();
+        },
+        loss: function (firstChoice, secondChoise) {
+            paragraph.innerHTML = `You loss. <br> Your choice was ${firstChoice} and its ${secondChoise}.`;
+            this.resetText();
+        },
+        resetText: function () {
+            setTimeout(() => {
+                paragraph.innerHTML = `Choose one of them`;
+            }, 3000);
         }
     }
 
-    reset();
+    return {
+        handleEvent: function (e) {
+            if (!choices.includes(e.target.id)) { return; }
+
+            const myChoice = e.target.id;
+            const randomChoice = this.choice(choices);
+            const result = this.checkForWinner(myChoice, randomChoice);
+            if (results[result]) { results[result](myChoice, randomChoice); }
+        },
+        choice: function (choices) {
+            return choices[Math.floor(Math.random() * choices.length)];
+        },
+        checkForWinner: function (firstChoice, secondChoise) {
+            if (firstChoice === secondChoise) { return 'equal'; }
+
+            if ((firstChoice === 'rock' && secondChoise === 'scissors') || (firstChoice === 'paper' && secondChoise === 'rock')) {
+                return 'win';
+            }
+
+            return 'loss';
+        }
+    }
 }
 
-function randomChoice() {
-    const arr = ['paper', 'rock', 'scissors'];
-
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function win(myChoice, computerChoice) {
-    text.innerHTML = `You win. <br> Your choice was ${myChoice} and its ${computerChoice}.`
-}
-
-function loss(myChoice, computerChoice) {
-    text.innerHTML = `You loss. <br> Your choice was ${myChoice} and its ${computerChoice}.`;
-}
-
-function equality(myChoice) {
-    text.innerHTML = `You are equal. <br>
-    You both chose ${myChoice}.`;
-}
-
-function reset() {
-    setTimeout(() => {
-        text.innerHTML = `Choose one of them`;
-    }, 1500);
-}
-
-function changeBackground(ev) {
-    let x = ev.clientX;
-    let y = ev.clientY;
-    
-    document.body.style.background = `linear-gradient(to right, rgb(${x - 200},${y - 500},150), rgb(${y - 300},${x - 250},150))`;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', app(document.getElementById('message')));
+})
