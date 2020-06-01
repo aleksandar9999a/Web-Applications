@@ -13,37 +13,25 @@
 
 <body>
     <div class="calculator card">
-
-        <input type="text" class="calculator-screen z-depth-1" value="" disabled />
-
+        <input class="calculator-screen z-depth-1" value="" id="screen" disabled />
         <div class="calculator-keys">
-
-            <button type="button" class="operator btn btn-info" value="+" onclick="getNumberFromDisplay('+')">+</button>
-            <button type="button" class="operator btn btn-info" value="-" onclick="getNumberFromDisplay('-')">-</button>
-            <button type="button" class="operator btn btn-info" value="*" onclick="getNumberFromDisplay('*')">&times;</button>
-            <button type="button" class="operator btn btn-info" value="/" onclick="getNumberFromDisplay('/')">&divide;</button>
-
-            <button type="button" value="7" class="btn btn-light waves-effect" onclick="addToDisplay(7)">7</button>
-            <button type="button" value="8" class="btn btn-light waves-effect" onclick="addToDisplay(8)">8</button>
-            <button type="button" value="9" class="btn btn-light waves-effect" onclick="addToDisplay(9)">9</button>
-
-
-            <button type="button" value="4" class="btn btn-light waves-effect" onclick="addToDisplay(4)">4</button>
-            <button type="button" value="5" class="btn btn-light waves-effect" onclick="addToDisplay(5)">5</button>
-            <button type="button" value="6" class="btn btn-light waves-effect" onclick="addToDisplay(6)">6</button>
-
-
-            <button type="button" value="1" class="btn btn-light waves-effect" onclick="addToDisplay(1)">1</button>
-            <button type="button" value="2" class="btn btn-light waves-effect" onclick="addToDisplay(2)">2</button>
-            <button type="button" value="3" class="btn btn-light waves-effect" onclick="addToDisplay(3)">3</button>
-
-
-            <button type="button" value="0" class="btn btn-light waves-effect" onclick="addToDisplay(0)">0</button>
-            <button type="button" class="decimal function btn btn-secondary" value="." onclick="addToDisplay('.')">.</button>
-            <button type="button" class="all-clear function btn btn-danger btn-sm" value="all-clear" onclick="clearAll()">AC</button>
-
-            <button type="button" class="equal-sign operator btn btn-default" value="=" onclick="finish()">=</button>
-
+            <button class="operator btn btn-info" value="+">+</button>
+            <button class="operator btn btn-info" value="-">-</button>
+            <button class="operator btn btn-info" value="*">&times;</button>
+            <button class="operator btn btn-info" value="/">&divide;</button>
+            <button class="btn btn-light waves-effect" value="7">7</button>
+            <button class="btn btn-light waves-effect" value="8">8</button>
+            <button class="btn btn-light waves-effect" value="9">9</button>
+            <button class="btn btn-light waves-effect" value="4">4</button>
+            <button class="btn btn-light waves-effect" value="5">5</button>
+            <button class="btn btn-light waves-effect" value="6">6</button>
+            <button class="btn btn-light waves-effect" value="1">1</button>
+            <button class="btn btn-light waves-effect" value="2">2</button>
+            <button class="btn btn-light waves-effect" value="3">3</button>
+            <button class="btn btn-light waves-effect" value="0">0</button>
+            <button class="decimal function btn btn-secondary" value=".">.</button>
+            <button class="all-clear function btn btn-danger btn-sm" value="AC">AC</button>
+            <button class="equal-sign operator btn btn-default" value="=">=</button>
         </div>
     </div>
 </body>

@@ -1,68 +1,42 @@
-let numberArr = [];
+function app(screen) {
+    const validValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '=', '-', '+', '*', '/', 'AC'];
+    const commands = ['-', '+', '*', '/'];
+    let value = '';
+    return {
+        handleEvent: function (e) {
+            if (e.target.tagName !== 'BUTTON') { return; }
+            if (!validValues.includes(e.target.value)) { return; }
+            if (e.target.value === 'AC') { value = ''; screen.value = value; return; }
+            if (commands.includes(value[value.length - 1]) && commands.includes(e.target.value)) {
+                value = value.slice(0, value.length - 1);
+            }
+            if (e.target.value === '=') { value = this.initCalc(); } else { value += e.target.value; }
 
-const clearAll = () => {
-    numberArr = [];
-    document.querySelector('.calculator-screen').value = '';
-}
-const calculation = (numberArr) => {
-    let finishNumber = Number(numberArr[0]);
-    for (let i = 1; i < numberArr.length; i += 2) {
-        let nextNumber = Number(numberArr[i+1]);
-        let operator = numberArr[i];
+            screen.value = value;
+        },
+        calculate: function (firstValue, secondValue, command) {
+            if (!commands.includes(command)) { return firstValue; }
+            if (command === '+') { return Number(firstValue) + Number(secondValue); }
+            if (command === '-') { return Number(firstValue) - Number(secondValue); }
+            if (command === '*') { return Number(firstValue) * Number(secondValue); }
+            if (command === '/') { return Number(firstValue) / Number(secondValue); }
+        },
+        initCalc: function () {
+            return value
+                .split('')
+                .reduce((acc, x) => {
+                    if (!acc[acc.length - 1] || commands.includes(x) || commands.includes(acc[acc.length - 1])) { acc.push(x); return acc; }
+                    acc[acc.length - 1] += x;
+                    return acc;
+                }, [])
+                .reduce((acc, x, i, arr) => {
+                    if (commands.includes(x)) { return acc; }
+                    if (i === 0) { return x; }
 
-        if (nextNumber != undefined) {
-            if (operator == '+') {
-                finishNumber += nextNumber;
-            }
-            else if (operator == '-') {
-                finishNumber -= nextNumber;
-            }
-            else if (operator == '*') {
-                finishNumber *= nextNumber;
-            }
-            else if (operator == '/') {
-                finishNumber /= nextNumber;
-            }
+                    return this.calculate(acc, x, arr[i - 1]);
+                }, 0)
         }
     }
-
-    return finishNumber;
 }
 
-const filter = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
-        if ((arr[i] == '+' || arr[i] == '-' || arr[i] == '*' || arr[i] == '/') && (arr[i + 1] == '+' || arr[i + 1] == '-' || arr[i + 1] == '*' || arr[i + 1] == '/')) {
-            arr.splice(i - 1, 1);
-            i--;
-        }
-    }
-    return arr;
-}
-
-const getNumberFromDisplay = (operator) => {
-    let currentNumber = document.querySelector('.calculator-screen').value;
-
-    if (currentNumber != 0) {
-        numberArr.push(currentNumber);
-    }
-    
-    numberArr.push(operator);
-    document.querySelector('.calculator-screen').value = 0;
-}
-
-const addToDisplay = (number) => {
-    if (document.querySelector('.calculator-screen').value == 0) {
-        document.querySelector('.calculator-screen').value = number;
-    }
-    else {
-        document.querySelector('.calculator-screen').value += number;
-    }
-}
-
-const finish = () => {
-    let currentNumber = document.querySelector('.calculator-screen').value;
-    numberArr.push(currentNumber);
-    numberArr = filter(numberArr);
-    document.querySelector('.calculator-screen').value = calculation(numberArr);
-    numberArr = [];
-}
+document.addEventListener('DOMContentLoaded', () => { document.addEventListener('click', app(document.getElementById('screen'))); })
