@@ -1,50 +1,57 @@
-window.addEventListener('load', () => {
-    let long;
-    let lat;
-    let temperatureDescription = document.querySelector('.temperature-describtion');
-    let temperatureDegree = document.querySelector('.temperature-degree');
-    let temperatureTimezone = document.querySelector('.location-timezone');
-    let temperatureSection = document.querySelector('.temperature');
-    const temperatureSpan = document.querySelector('.temperature span');
+const proxy = 'https://cors-anywhere.herokuapp.com';
+const key = '';
+const api = `${proxy}/https://api.darksky.net/forecast/${key}`;
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            long = position.coords.longitude;
-            lat = position.coords.latitude;
+const getCurrentPosition = () => new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
+const deserialize = (data) => data.json();
 
-            const proxy = 'https://cors-anywhere.herokuapp.com/';
-            const api = `${proxy}https://api.darksky.net/forecast/2fc38197207d3341746d1911864cd14c/${lat},${long}`;
+function setIcon(icon, iconID) {
+    const skycons = new Skycons({ color: "white" });
+    const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+    skycons.play();
+    return skycons.set(iconID, Skycons[currentIcon]);
+}
 
-            fetch(api).then(data => {
-                return data.json();
-            }).then(data => {
-                const {temperature, summary, icon} = data.currently;
-                const timezone = data.timezone;
-                temperatureDegree.textContent = temperature;
-                temperatureDescription.textContent = summary;
-                temperatureTimezone.textContent = timezone;
+function fetchWeather(position) {
+    const { longitude, latitude } = position.coords;
+    return fetch(`${api}/${latitude},${longitude}`);
+}
 
-                setIcon(icon, document.querySelector('.icon'));
-
-                temperatureSection.addEventListener('click', () => {
-                    if (temperatureSpan.textContent === "F") {
-                        temperatureSpan.textContent = "C";
-                        let c = (temperature - 32) * (5 / 9);
-                        temperatureDegree.textContent = c.toFixed(2);
-                    }
-                    else {
-                        temperatureSpan.textContent = "F";
-                        temperatureDegree.textContent = temperature;
-                    }
-                });
-            })
+function app(tempDesc, tempDegree, loc, temp, span, iconSpan) {
+    function setData(data) {
+        const { temperature, summary, icon } = data.currently;
+        tempDegree.textContent = temperature;
+        tempDesc.textContent = summary;
+        loc.textContent = data.timezone;
+        setIcon(icon, iconSpan);
+        return data;
+    }
+    
+    function addEvents(data) {
+        const { temperature } = data.currently;
+        temp.addEventListener('click', () => {
+            if (span.textContent === "F") {
+                span.textContent = "C";
+                let c = (temperature - 32) * (5 / 9);
+                tempDegree.textContent = c.toFixed(2);
+            }
+            else {
+                span.textContent = "F";
+                tempDegree.textContent = temperature;
+            }
         });
     }
 
-    function setIcon(icon, iconID) {
-        const skycons = new Skycons({color: "white"});
-        const currentIcon = icon.replace(/-/g, "_").toUpperCase();
-        skycons.play();
-        return skycons.set(iconID, Skycons[currentIcon]);
-    }
+    return getCurrentPosition().then(fetchWeather).then(deserialize).then(setData).then(addEvents).catch(console.error);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    app(
+        document.querySelector('.temperature-describtion'),
+        document.querySelector('.temperature-degree'),
+        document.querySelector('.location-timezone'),
+        document.querySelector('.temperature'),
+        document.querySelector('.temperature span'),
+        document.querySelector('.icon')
+    )
 })
